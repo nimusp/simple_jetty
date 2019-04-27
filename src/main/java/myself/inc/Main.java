@@ -8,6 +8,8 @@ package myself.inc;
 import myself.inc.accounts.AccountService;
 import myself.inc.accounts.UserProfile;
 import myself.inc.servlets.SessionsServlet;
+import myself.inc.servlets.SingInServlet;
+import myself.inc.servlets.SingUpServlet;
 import myself.inc.servlets.TestRequestServlet;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -25,10 +27,14 @@ public class Main {
 
         TestRequestServlet testRequestServlet = new TestRequestServlet();
         SessionsServlet sessionsServlet = new SessionsServlet(accountService);
+        SingUpServlet singUpServlet = new SingUpServlet(accountService);
+        SingInServlet singInServlet = new SingInServlet(accountService);
 
         ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         contextHandler.addServlet(new ServletHolder(testRequestServlet), "/testPage");
         contextHandler.addServlet(new ServletHolder(sessionsServlet), "/api/v1/sessions");
+        contextHandler.addServlet(new ServletHolder(singUpServlet), "/signUp");
+        contextHandler.addServlet(new ServletHolder(singInServlet), "/signIn");
 
         ResourceHandler resourceHandler = new ResourceHandler();
         resourceHandler.setResourceBase("templates");

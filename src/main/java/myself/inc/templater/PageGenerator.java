@@ -1,3 +1,8 @@
+/*
+ * Developed by Sumin Pavel on 4/27/19 12:50 PM.
+ * Last modified 4/27/19 12:50 PM
+ */
+
 package myself.inc.templater;
 
 import freemarker.template.Configuration;
@@ -30,9 +35,7 @@ public class PageGenerator {
         try {
             Template template = configuration.getTemplate( filename);
             template.process(data, stream);
-        } catch (TemplateException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (TemplateException | IOException e) {
             e.printStackTrace();
         }
         return stream.toString();

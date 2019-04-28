@@ -5,32 +5,36 @@
 
 package myself.inc.accounts;
 
+import org.jetbrains.annotations.NotNull;
+
 public class UserProfile {
 
+    @NotNull
     private final String login;
+
+    @NotNull
     private final String password;
+
+    @NotNull
     private final String email;
 
-    public UserProfile(String login, String password, String email) {
+    public UserProfile(@NotNull String login, @NotNull String password, @NotNull String email) {
         this.login = login;
         this.password = password;
         this.email = email;
     }
 
-    public UserProfile(String login) {
-        this.login = login;
-        this.password = login;
-        this.email = login;
-    }
-
+    @NotNull
     public String getLogin() {
         return login;
     }
 
+    @NotNull
     public String getPassword() {
         return password;
     }
 
+    @NotNull
     public String getEmail() {
         return email;
     }

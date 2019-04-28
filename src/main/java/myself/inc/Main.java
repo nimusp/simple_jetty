@@ -7,6 +7,8 @@ package myself.inc;
 
 import myself.inc.accounts.AccountService;
 import myself.inc.accounts.UserProfile;
+import myself.inc.dbService.DbService;
+import myself.inc.dbService.DbServiceImpl;
 import myself.inc.servlets.SessionsServlet;
 import myself.inc.servlets.SingInServlet;
 import myself.inc.servlets.SingUpServlet;
@@ -21,14 +23,13 @@ import org.eclipse.jetty.servlet.ServletHolder;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        AccountService accountService = new AccountService();
-        accountService.addUser(new UserProfile("test"));
-        accountService.addUser(new UserProfile("admin"));
+        DbService dbService = new DbServiceImpl();
+        dbService.printConnectInfo();
 
         TestRequestServlet testRequestServlet = new TestRequestServlet();
-        SessionsServlet sessionsServlet = new SessionsServlet(accountService);
-        SingUpServlet singUpServlet = new SingUpServlet(accountService);
-        SingInServlet singInServlet = new SingInServlet(accountService);
+        SessionsServlet sessionsServlet = new SessionsServlet(new AccountService());
+        SingUpServlet singUpServlet = new SingUpServlet(dbService);
+        SingInServlet singInServlet = new SingInServlet(dbService);
 
         ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         contextHandler.addServlet(new ServletHolder(testRequestServlet), "/testPage");

@@ -5,8 +5,8 @@
 
 package myself.inc.servlets;
 
-import myself.inc.accounts.AccountService;
 import myself.inc.accounts.UserProfile;
+import myself.inc.dbService.DbService;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,10 +15,10 @@ import java.io.IOException;
 
 public class SingInServlet extends HttpServlet {
 
-    private final AccountService accountService;
+    private final DbService dbService;
 
-    public SingInServlet(AccountService accountService) {
-        this.accountService = accountService;
+    public SingInServlet(DbService dbService) {
+        this.dbService = dbService;
     }
 
     @Override
@@ -31,8 +31,8 @@ public class SingInServlet extends HttpServlet {
             return;
         }
 
-        UserProfile profile = accountService.getUserByLogin(login);
-        if (profile == null) {
+        UserProfile profile = dbService.getUserByLogin(login);
+        if (profile == null && profile.getPassword().equals(password)) {
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             resp.getWriter().println("Unauthorized");
         } else {

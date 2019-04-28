@@ -11,11 +11,9 @@ import java.util.Map;
 public class AccountService {
 
     private final Map<String, UserProfile> sessionsProfile;
-    private final Map<String, UserProfile> loginProfile;
 
      public AccountService() {
          this.sessionsProfile = new HashMap<>();
-         this.loginProfile = new HashMap<>();
      }
 
      public void addSession(String sessionId, UserProfile profile) {
@@ -28,13 +26,5 @@ public class AccountService {
 
      public void deleteSession(String sessionId) {
          sessionsProfile.remove(sessionId);
-     }
-
-     public void addUser(UserProfile profile) {
-         loginProfile.put(profile.getLogin(), profile);
-     }
-
-     public UserProfile getUserByLogin(String login) {
-         return loginProfile.get(login);
      }
 }

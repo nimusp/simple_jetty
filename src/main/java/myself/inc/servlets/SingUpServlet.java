@@ -7,6 +7,7 @@ package myself.inc.servlets;
 
 import myself.inc.accounts.AccountService;
 import myself.inc.accounts.UserProfile;
+import myself.inc.dbService.DbService;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 public class SingUpServlet extends HttpServlet {
 
-    private final AccountService accountService;
+    private final DbService dbService;
 
-    public SingUpServlet(AccountService accountService) {
-        this.accountService = accountService;
+    public SingUpServlet(DbService dbService) {
+        this.dbService = dbService;
     }
 
     @Override
@@ -31,7 +32,7 @@ public class SingUpServlet extends HttpServlet {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
             UserProfile profile = new UserProfile(login, password, "test_email");
-            accountService.addUser(profile);
+            dbService.addUser(profile);
             resp.setStatus(HttpServletResponse.SC_OK);
         }
     }

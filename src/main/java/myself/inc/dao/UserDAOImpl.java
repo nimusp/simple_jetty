@@ -42,6 +42,7 @@ public class UserDAOImpl implements UserDao {
                                 .equal(query.from(UsersDataSet.class).get("login"), login));
         final UsersDataSet resultData = session.createQuery(resultQuery).getSingleResult();
         transaction.commit();
+        session.close();
         return resultData;
     }
 }

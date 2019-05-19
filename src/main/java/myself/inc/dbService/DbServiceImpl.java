@@ -42,10 +42,9 @@ public class DbServiceImpl implements DbService {
     }
 
     public void printConnectInfo() {
-        try {
-            Connection connection = sessionFactory
-                    .getSessionFactoryOptions().getServiceRegistry()
-                    .getService(ConnectionProvider.class).getConnection();
+        try (Connection connection = sessionFactory
+                .getSessionFactoryOptions().getServiceRegistry()
+                .getService(ConnectionProvider.class).getConnection()) {
             DatabaseMetaData metaData = connection.getMetaData();
             System.out.println("DB name: " + metaData.getDatabaseProductName());
             System.out.println("DB version: " + metaData.getDatabaseProductVersion());
